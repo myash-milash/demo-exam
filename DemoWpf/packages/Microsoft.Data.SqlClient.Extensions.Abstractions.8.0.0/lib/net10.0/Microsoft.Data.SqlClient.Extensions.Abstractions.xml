@@ -1,0 +1,1001 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Data.SqlClient.Extensions.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Data.SqlClient.AuthenticationFeatureSwitches">
+            <summary>
+            Defines authentication switches so reflective bootstrap can be retained in trimmed JIT apps
+            or excluded at publish time for explicit registration in trimmed and AOT applications.
+            </summary>
+            <remarks>
+            Configuration and discovery default to enabled to preserve existing runtime behavior.  Each
+            switch is read on first access and cached for the lifetime of the process.  Publish-time switch
+            values allow trimming tools to remove guarded reflection paths; changing an AppContext switch at
+            runtime does not change what was retained during publishing.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.AuthenticationFeatureSwitches.EnableAppConfig">
+            <summary>
+            Gets whether authentication providers and initializers may be loaded from app.config.
+            </summary>
+            <remarks>
+            Defaults to true when the AppContext switch is unset.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.AuthenticationFeatureSwitches.EnableAzureExtensionDiscovery">
+            <summary>
+            Gets whether authentication bootstrap may discover the Azure extension provider through
+            reflection.
+            </summary>
+            <remarks>
+            Defaults to true when the AppContext switch is unset.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.AuthenticationStrings">
+            <summary>
+            Creates localized authentication error messages and exceptions using resources owned by
+            Abstractions, without depending on the driver assembly's resource helpers.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.AuthenticationStrings.s_resources">
+            <summary>
+            Loads authentication strings from this assembly and its localized satellite assemblies.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.Format(System.String,System.Object[])">
+            <summary>
+            Retrieves a resource using the current UI culture and formats it using the current culture.
+            Recoverable lookup or formatting failures are logged and produce a fallback containing
+            the resource key and argument values.
+            </summary>
+            <param name="key">The authentication resource key.</param>
+            <param name="args">Values to substitute into the resource's format placeholders.</param>
+            <returns>The localized message, or a generic diagnostic message if formatting fails.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.FormatArgument(System.Object)">
+            <summary>
+            Formats an argument using the current culture. Recoverable formatting failures are logged
+            and replaced with a type-name placeholder; fatal runtime errors propagate.
+            </summary>
+            <param name="argument">The value to format, or null.</param>
+            <returns>
+            The formatted value, "&lt;null&gt;" for null, or "&lt;unformattable: type-name&gt;" if the
+            value cannot be formatted.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.CannotCreateAuthProvider(System.String,System.String,System.Exception)">
+            <summary>
+            Creates an argument exception for a provider construction failure, preserving its cause.
+            </summary>
+            <param name="authentication">The configured authentication method.</param>
+            <param name="type">The configured provider type name.</param>
+            <param name="e">The exception that caused construction to fail.</param>
+            <returns>An exception containing the localized message and original exception.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.CannotCreateSqlAuthInitializer(System.String,System.Exception)">
+            <summary>
+            Creates an argument exception for an authentication initializer construction failure,
+            preserving its cause.
+            </summary>
+            <param name="type">The configured initializer type name.</param>
+            <param name="e">The exception that caused construction to fail.</param>
+            <returns>An exception containing the localized message and original exception.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.UnsupportedAuthenticationByProvider(System.String,System.String)">
+            <summary>
+            Creates a not-supported exception when a provider rejects its configured authentication method.
+            </summary>
+            <param name="authentication">The unsupported authentication method.</param>
+            <param name="type">The configured provider type name.</param>
+            <returns>An exception identifying the provider and unsupported method.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.UnsupportedAuthentication(System.String)">
+            <summary>
+            Creates a not-supported exception for an unrecognized authentication method name.
+            </summary>
+            <param name="authentication">The unrecognized configured authentication method.</param>
+            <returns>An exception identifying the unsupported method.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.InvalidAuthenticationProviderCollection">
+            <summary>Creates an error for an incompatible authentication provider collection.</summary>
+            <returns>A localized configuration error.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.InvalidAuthenticationBrokerValue(System.String)">
+            <summary>Creates an error for a configured broker value that is not a Boolean.</summary>
+            <param name="value">The invalid configured value.</param>
+            <returns>A localized configuration error identifying the invalid value.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.MissingAuthenticationConfigurationProperty(System.String)">
+            <summary>Creates an error for a missing authentication configuration property.</summary>
+            <param name="name">The missing property name.</param>
+            <returns>A localized configuration error identifying the missing property.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.InvalidAuthenticationConfigurationPropertyType(System.String)">
+            <summary>Creates an error for an authentication property that is not a string.</summary>
+            <param name="name">The incompatible property name.</param>
+            <returns>A localized configuration error identifying the incompatible property.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.InvalidAuthenticationConfigurationHandler(System.String,System.String,System.String)">
+            <summary>Creates an error for an incompatible authentication section handler.</summary>
+            <param name="name">The configuration section name.</param>
+            <param name="expectedType">The expected handler type name.</param>
+            <param name="actualType">The actual handler type name.</param>
+            <returns>A localized configuration error identifying both handler types.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.InvalidAuthenticationInitializerInstance">
+            <summary>Creates an error for a null or incompatible configured initializer instance.</summary>
+            <returns>A localized activation error.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.InvalidAuthenticationProviderInstance">
+            <summary>Creates an error for a null or incompatible configured provider instance.</summary>
+            <returns>A localized activation error.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AuthenticationStrings.CannotRegisterAuthProvider(System.String,System.String)">
+            <summary>Creates an error when a configured provider registration is refused.</summary>
+            <param name="authentication">The configured authentication method.</param>
+            <param name="type">The configured provider type name.</param>
+            <returns>A localized registration error identifying the provider and method.</returns>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.AzureExtensionLoader">
+            <summary>Loads the optional Azure assembly for authentication discovery in Abstractions.</summary>
+            <remarks>
+            SqlClient owns an independent attestation loader so attestation does not depend on
+            authentication configuration, initializers or discovery switches. Keep their assembly
+            identity checks consistent.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.AzureExtensionLoader.Load(System.String)">
+            <summary>Loads the extension and checks its identity in signed builds.</summary>
+            <param name="caller">The caller name for diagnostics.</param>
+            <returns>The trusted assembly, or null when missing, unloadable or untrusted.</returns>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.ExceptionHelpers">
+            <summary>Provides exception-handling policy for authentication activation and registration.</summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.ExceptionHelpers.IsRecoverableException(System.Exception)">
+            <summary>Determines whether handling a failure would mask a fatal runtime error.</summary>
+            <param name="exception">The failure, including nested and aggregate exceptions.</param>
+            <returns>False if any nested failure is fatal or cannot be examined safely.</returns>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration">
+            <summary>
+            Loads and validates authentication settings without activating initializers or providers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.ApplicationClientId">
+            <summary>The client ID override, or null to preserve the Azure provider's default.</summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.UseWamBroker">
+            <summary>The broker override, or null to preserve the Azure provider's default.</summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.InitializerType">
+            <summary>The configured initializer type name, or empty if none was specified.</summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.Providers">
+            <summary>
+            Provider entries in configuration order, validated and activated by the registry.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.#ctor">
+            <summary>Creates empty settings without retaining configuration reflection in AOT bootstrap.</summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.#ctor(System.Configuration.ConfigurationSection)">
+            <summary>
+            Reads either supported handler's metadata, or creates empty settings when no section is supplied.
+            </summary>
+            <param name="section">The selected section, or null for no authentication overrides.</param>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.Load(System.Func{System.String,System.Object})">
+            <summary>Loads the modern section, falling back when it is absent or has an incompatible handler.</summary>
+            <param name="getSection">
+            The section reader, or null to use the process-wide ConfigurationManager.
+            </param>
+            <returns>Validated settings, including empty settings when neither section exists.</returns>
+            <remarks>Configuration errors are traced and produce empty settings, matching the driver.</remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.ReadString(System.Configuration.ConfigurationSection,System.String)">
+            <summary>
+            Reads a string property, asserting schema mismatches before returning empty.
+            </summary>
+            <param name="section">The section containing the property.</param>
+            <param name="name">The configuration property name.</param>
+            <returns>The value, or empty if the property is missing, incompatible or null.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.FetchConfigurationSection(System.String,System.Type,System.Func{System.String,System.Object})">
+            <summary>Fetches a section only when its handler has the expected type.</summary>
+            <param name="name">The configuration section name.</param>
+            <param name="type">The expected handler type.</param>
+            <param name="getSection">
+            The section reader, or null to use the process-wide ConfigurationManager.
+            </param>
+            <returns>The matching section, or null if absent or incompatible.</returns>
+            <exception cref="T:System.Configuration.ConfigurationErrorsException">
+            The section cannot be loaded.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationConfiguration.AuthenticationEnumFromString(System.String)">
+            <summary>Maps only supported authentication method names, ignoring case.</summary>
+            <param name="authentication">The method name from a configured provider entry.</param>
+            <returns>The supported Active Directory authentication method.</returns>
+            <exception cref="T:System.NotSupportedException">The configured name is not recognized.</exception>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationInitializer">
+            <summary>Initializes authentication providers configured in app.config.</summary><remarks>
+        Configured initializers run synchronously during registry bootstrap without holding the
+        lookup/publication lock. Concurrent and reentrant calls observe providers published so far.
+        Only registrations made on the initializer's own thread receive configuration precedence.
+        This uses the current managed thread ID, not logical async context or causal ownership.
+        Work queued to another thread, including Task.Run work that this method waits for, uses
+        application precedence and normal recoverable-error handling (SetProvider returns false).
+        Same-thread calls made before an asynchronous operation yields still receive initializer
+        handling while Initialize is running. Continuations on another thread do not.
+        Initializer status ends when Initialize returns or throws. The registry does not await
+        queued work or async-void continuations, and failures from that work are not automatically
+        captured as initializer failures. GetProvider does not use this thread-ID check.
+        Recoverable initialization or registration failures stop this initializer and are traced,
+        but later configured providers are still attempted. Defaults cannot fill
+        otherwise-unregistered methods after initializer failure because its intended methods
+        are unknown. Explicit application registration can recover a missing method.
+        Fatal failures propagate and are not cached by registry bootstrap. If execution continues,
+        later access can retry bootstrap and repeat initializer side effects.
+        Earlier registrations and initializer side effects are not
+        rolled back. Enable tracing before the first registry access to capture these failures;
+        recoverable initialization failures are not retried until the application restarts.
+      </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationInitializer.#ctor">
+            <summary>Creates an authentication initializer.</summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationInitializer.Initialize">
+            <summary>Registers application-configured authentication providers.</summary><remarks>
+        This method executes without the lookup/publication lock. Concurrent and reentrant
+        lookups observe providers published so far and can return null before a method has been
+        initialized. Configuration precedence applies only to registrations made on this thread.
+        Complete required registrations synchronously before returning; asynchronous work does not
+        inherit initializer status through ExecutionContext flow.
+      </remarks>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationMethod">
+            <summary>Describes the different SQL authentication methods that can be used by a client connecting to Azure SQL Database. For details, see <see href="https://learn.microsoft.com/azure/azure-sql/database/authentication-aad-overview">Use Microsoft Entra Authentication</see>.</summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.NotSpecified">
+            <summary>The authentication method is not specified.</summary><value>0</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.SqlPassword">
+            <summary>The authentication method uses Sql Password. Use Sql Password to connect to a SQL Database using SQL Server authentication.</summary><value>1</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryPassword">
+            <summary>The authentication method uses Active Directory Password. Use Active Directory Password to connect to a SQL Database using a Microsoft Entra principal name and password.</summary><value>2</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryIntegrated">
+            <summary>The authentication method uses Active Directory Integrated. Use Active Directory Integrated to connect to a SQL Database using integrated Windows authentication.</summary><value>3</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryInteractive">
+            <summary>The authentication method uses Active Directory Interactive. Use Active Directory Interactive to connect to a SQL Database with an interactive authentication flow.</summary><value>4</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryServicePrincipal">
+            <summary>The authentication method uses Active Directory Service Principal. Use Active Directory Service Principal to connect to a SQL Database using the client ID and secret of a service principal identity.</summary><value>5</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryDeviceCodeFlow">
+            <summary>The authentication method uses Active Directory Device Code Flow. Use Active Directory Device Code Flow to connect to a SQL Database from devices and operating systems that do not provide a Web browser, using another device to perform interactive authentication.</summary><value>6</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryManagedIdentity">
+            <summary>The authentication method uses Active Directory Managed Identity. Use System Assigned or User Assigned Managed Identity to connect to SQL Database from Azure client environments that have enabled support for Managed Identity. For User Assigned Managed Identity, 'User Id' or 'UID' is required to be set to the "client ID" of the user identity.</summary><value>7</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryMSI">
+            <summary>Alias for "Active Directory Managed Identity" authentication method. Use System Assigned or User Assigned Managed Identity to connect to SQL Database from Azure client environments that have enabled support for Managed Identity. For User Assigned Managed Identity, 'User Id' or 'UID' is required to be set to the "client ID" of the user identity.</summary><value>8</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryDefault">
+            <summary>The authentication method uses Active Directory Default. Use this mode to connect to a SQL Database using multiple non-interactive authentication methods tried sequentially to acquire an access token. This method does not fallback to the "Active Directory Interactive" authentication method.</summary><value>9</value>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationMethod.ActiveDirectoryWorkloadIdentity">
+            <summary>The authentication method uses Active Directory Workload Identity. Use a federated User Assigned Managed Identity to connect to SQL Database from Azure client environments that have enabled support for Workload Identity. The 'User Id' or 'UID' is required to be set to the "client ID" of the user identity.</summary><value>10</value>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationParameters">
+            <summary>
+        Represents AD authentication parameters passed by a driver to authentication providers.
+      </summary><remarks>
+        <para>
+          During federated authentication, SQL Server supplies the security token service URL
+          (STSURL) and target resource identifier (SPN) in the FEDAUTHINFO token. The driver passes
+          these values to the authentication provider or access-token callback as
+          <see cref="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.Authority" /> and
+          <see cref="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.Resource" />, respectively.
+        </para>
+        <para>
+          These values reflect the server's authentication configuration. The driver does not
+          impose a fixed list of authority or resource identifiers, allowing customer-configured
+          authentication systems. Protocol checks and the selected authentication provider's
+          requirements still apply.
+        </para>
+      </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationParameters.#ctor(Microsoft.Data.SqlClient.SqlAuthenticationMethod,System.String,System.String,System.String,System.String,System.String,System.String,System.Guid,System.Int32)">
+            <summary>
+        Construct with values for all properties.
+      </summary><param name="authenticationMethod">The authentication method.</param><param name="serverName">The server name.</param><param name="databaseName">The database name.</param><param name="resource">The target resource identifier used to acquire an access token.</param><param name="authority">The authority URI used to acquire an access token.</param><param name="userId">The user login name/ID, or null if not applicable.</param><param name="password">The user password, or null if not applicable.</param><param name="connectionId">The connection ID.</param><param name="connectionTimeout">
+        The authentication timeout, in seconds.  The overall connection timeout
+        is managed by the driver; this timeout only applies to authentication.
+      </param>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.AuthenticationMethod">
+            <summary>Gets the authentication method.</summary><value>The authentication method.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.Resource">
+            <summary>Gets the target resource identifier used to acquire an access token.</summary><value>
+        The target resource identifier. During federated authentication, the driver supplies the
+        SPN value received from SQL Server in the FEDAUTHINFO token.
+      </value><remarks>
+        <para>
+          The FEDAUTH SPN identifies the resource for token acquisition. It is not the Kerberos
+          service principal name configured by the Server SPN or Failover Partner SPN
+          connection-string options, or an application's service-principal client ID.
+        </para>
+        <para>
+          The authentication provider or access-token callback uses this identifier according to
+          its token acquisition requirements. For example, the Azure authentication provider
+          appends <c>/.default</c> when the resource does not already have that scope suffix.
+        </para>
+      </remarks>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.Authority">
+            <summary>Gets the authority URI.</summary><value>
+        The authority URI. During federated authentication, the driver supplies the security token
+        service URL (STSURL) received from SQL Server in the FEDAUTHINFO token.
+      </value><remarks>
+        The authentication provider or access-token callback uses this URI according to its token
+        acquisition requirements. For example, the Azure authentication provider parses an absolute
+        HTTPS URL into an authority host and tenant before acquiring a token.
+      </remarks>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.UserId">
+            <summary>Gets the user login name/ID.</summary><value>The user login name/ID, or null if not applicable.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.Password">
+            <summary>Gets the user password.</summary><value>The user password, or null if not applicable.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.ConnectionId">
+            <summary>Gets the connection ID.</summary><value>The connection ID.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.ServerName">
+            <summary>Gets the server name.</summary><value>The server name.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.DatabaseName">
+            <summary>Gets the database name.</summary><value>The database name.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.ConnectionTimeout">
+            <summary>Gets the authentication timeout value, in seconds.</summary>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationProvider">
+            <summary>Defines the core behavior of authentication providers and provides a base class for derived classes.</summary><remarks>
+        Derived classes must provide a parameterless constructor if they can be instantiated from the app.config file.
+      </remarks><example>
+        The following example demonstrates implementing a custom SqlAuthenticationProvider and providing the same to SqlClient for overriding Device Code Flow authentication mode:
+        <code language="c#">
+          using System;
+          using System.Collections.Generic;
+          using System.Linq;
+          using System.Threading.Tasks;
+          using Microsoft.Data.SqlClient;
+          using Microsoft.Identity.Client;
+
+          namespace CustomAuthenticationProviderExamples
+          {
+              /// &lt;summary&gt;
+              /// Example demonstrating creating a custom device code flow authentication provider and attaching it to the driver.
+              /// This is helpful for applications that wish to override the Callback for the Device Code Result implemented by the SqlClient driver.
+              /// &lt;/summary&gt;
+              public class CustomDeviceCodeFlowAzureAuthenticationProvider : SqlAuthenticationProvider
+              {
+                  private const string ClientId = "my-client-id";
+                  private const string ClientName = "My Application Name";
+                  private const string DefaultScopeSuffix = "/.default";
+
+                  // Maintain a copy of the PublicClientApplication object to cache the underlying access tokens it provides
+                  private static IPublicClientApplication pcApplication;
+
+                  public override async Task&lt;SqlAuthenticationToken&gt; AcquireTokenAsync(SqlAuthenticationParameters parameters)
+                  {
+                      string[] scopes = [ parameters.Resource.EndsWith(DefaultScopeSuffix) ? parameters.Resource : parameters.Resource + DefaultScopeSuffix ];
+
+                      IPublicClientApplication app = pcApplication;
+                      if (app == null)
+                      {
+                          pcApplication = app = PublicClientApplicationBuilder.Create(ClientId)
+                              .WithAuthority(parameters.Authority)
+                              .WithClientName(ClientName)
+                              .WithRedirectUri("https://login.microsoftonline.com/common/oauth2/nativeclient")
+                              .Build();
+                      }
+
+                      AuthenticationResult result;
+                      using CancellationTokenSource connectionTimeoutCancellation = new CancellationTokenSource(TimeSpan.FromSeconds(parameters.ConnectionTimeout));
+
+                      try
+                      {
+                          IEnumerable&lt;IAccount&gt; accounts = await app.GetAccountsAsync();
+                          result = await app.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
+                              .ExecuteAsync(connectionTimeoutCancellation.Token);
+                      }
+                      catch (MsalUiRequiredException)
+                      {
+                          result = await app.AcquireTokenWithDeviceCode(scopes, deviceCodeResult =&gt; CustomDeviceFlowCallback(deviceCodeResult))
+                              .ExecuteAsync(connectionTimeoutCancellation.Token);
+                      }
+
+                      return new SqlAuthenticationToken(result.AccessToken, result.ExpiresOn);
+                  }
+
+                  public override bool IsSupported(SqlAuthenticationMethod authenticationMethod) =&gt;
+                      authenticationMethod.Equals(SqlAuthenticationMethod.ActiveDirectoryDeviceCodeFlow);
+
+                  private Task CustomDeviceFlowCallback(DeviceCodeResult result)
+                  {
+                      Console.WriteLine(result.Message);
+                      return Task.CompletedTask;
+                  }
+              }
+
+              public class Program
+              {
+                  public static void Main()
+                  {
+                      // Register our custom authentication provider class to override Active Directory Device Code Flow
+                      SqlAuthenticationProvider.SetProvider(SqlAuthenticationMethod.ActiveDirectoryDeviceCodeFlow, new CustomDeviceCodeFlowAzureAuthenticationProvider());
+                      using (SqlConnection sqlConnection = new SqlConnection("Server=&lt;myserver&gt;.database.windows.net;Authentication=Active Directory Device Code Flow;Database=&lt;db&gt;;"))
+                      {
+                          sqlConnection.Open();
+                          Console.WriteLine("Connected successfully!");
+                      }
+                  }
+              }
+          }
+        </code>
+      </example>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.BeforeLoad(Microsoft.Data.SqlClient.SqlAuthenticationMethod)">
+            <summary>This method is called immediately before the provider is added to the SQL authentication provider registry.</summary><remarks>
+        This callback runs outside the registry lookup/publication lock. It delays the calling
+        registration, not other lookups. Concurrent or reentrant registration changes can cause
+        callbacks to be retried.
+
+        This method must not throw.
+      </remarks><param name="authenticationMethod">The authentication method.</param>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.BeforeUnload(Microsoft.Data.SqlClient.SqlAuthenticationMethod)">
+            <summary>This method is called immediately before the provider is removed from the SQL authentication provider registry.</summary><remarks>
+        This method is called when a different provider replaces this provider for the same method.
+        It runs outside the lookup/publication lock; lookups retain the existing provider until
+        successful publication. Concurrent or reentrant registration changes can cause retries.
+
+        This method must not throw.
+      </remarks><param name="authenticationMethod">The authentication method.</param>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.IsSupported(Microsoft.Data.SqlClient.SqlAuthenticationMethod)">
+            <summary>Indicates whether the specified authentication method is supported.</summary><remarks>This method must not throw.</remarks><returns>
+        <see langword="true" /> if the specified authentication method is supported; otherwise, <see langword="false" />.
+      </returns><param name="authenticationMethod">The authentication method.</param>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.AcquireTokenAsync(Microsoft.Data.SqlClient.SqlAuthenticationParameters)">
+            <summary>Acquires an access token from the authority.</summary><param name="parameters">The parameters passed to the provider by the driver.</param><remarks>
+        During federated authentication, the driver passes the server-supplied STSURL and SPN as
+        <see cref="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.Authority" /> and
+        <see cref="P:Microsoft.Data.SqlClient.SqlAuthenticationParameters.Resource" />, respectively.
+        These values reflect the server's authentication configuration; the provider uses them
+        according to its token acquisition requirements.
+      </remarks><throws cref="T:Microsoft.Data.SqlClient.SqlAuthenticationProviderException">If any errors occur.</throws><returns>Represents an asynchronous operation that returns the AD authentication token.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.GetProvider(Microsoft.Data.SqlClient.SqlAuthenticationMethod)">
+            <summary>Gets an authentication provider by method.</summary><param name="authenticationMethod">The authentication method.</param><returns>The authentication provider or <see langword="null" /> if no provider is registered.</returns><remarks>
+        Bootstraps the registry on first access. Explicit registration in trimmed and NativeAOT
+        applications requires disabling configuration and Azure discovery at publish time.
+        Trimmed JIT apps may retain enabled reflective paths when they preserve the configuration
+        infrastructure, handlers, initializer/provider types and discovered Azure contracts.
+        Enabled paths report trimming and dynamic-code warnings as applicable.
+        Recoverable registry initialization failures emit diagnostic traces
+        through Microsoft.Data.SqlClient.EventSource with the Trace keyword (0x2).
+        Enable tracing before the first registry access to capture configuration-reading,
+        initializer/provider activation and Azure-discovery failures. Recoverable failures in
+        these steps are traced. Activation failures retain their original exceptions. A failed
+        explicit method returns null instead of an earlier provider or Azure default.
+        Failed initializers block defaults for otherwise-unregistered methods.
+        Subsequent lookups of affected methods trace their retained activation failures.
+        Unexpected recoverable bootstrap failures are also cached and logged on later accesses.
+        Unaffected successfully registered providers remain usable.
+        Register an application provider as a workaround, or correct the reported configuration
+        or package version problem and restart the application to retry bootstrap.
+        <para>
+          User callbacks execute outside the lookup/publication lock. Concurrent or reentrant
+          registration changes cause replacement to recheck precedence and retry callbacks.
+          During bootstrap, concurrent and reentrant lookups see only providers published so far;
+          a method not initialized yet can return null. During replacement, lookups retain the
+          previous provider until successful publication.
+        </para>
+      </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.SetProvider(Microsoft.Data.SqlClient.SqlAuthenticationMethod,Microsoft.Data.SqlClient.SqlAuthenticationProvider)">
+            <summary>Sets an authentication provider by method.</summary><param name="authenticationMethod">The authentication method.</param><param name="provider">The authentication provider.</param><returns>
+        <see langword="true" /> if the operation succeeded; otherwise, <see langword="false" /> (for example, the existing provider disallows overriding).
+      </returns><remarks>
+        Works directly under NativeAOT when reflective bootstrap is disabled at publish time.
+        Successfully registered configuration providers and configured initializers
+        cannot be overwritten by application registrations. Application registrations replace
+        the discovered Azure default. Outside configured initializer execution, a null provider,
+        unsupported method or recoverable provider callback failure returns false and emits diagnostic traces
+        through Microsoft.Data.SqlClient.EventSource with the Trace keyword (0x2).
+        During a configured initializer, registration errors propagate to the configuration
+        application step and stop that initializer. Recoverable initializer failures are traced,
+        and later configured providers are still attempted. Failed explicit methods cannot use
+        earlier providers or defaults. Failed initializers prevent defaults for unknown intended
+        methods. Application registration can explicitly recover a failed method.
+        Fatal failures propagate, including failures nested in inner or aggregate exceptions.
+        Fatal bootstrap failures are not cached; later access can retry bootstrap and repeat
+        earlier side effects if execution continues.
+        Failed application registrations do not publish the candidate provider.
+        Unexpected recoverable bootstrap failures are cached and traced, but application
+        registration remains available without retrying bootstrap. Existing configuration
+        registrations retain precedence. Correct the reported cause and restart the application
+        to retry failed configuration or discovery.
+        <para>
+          User callbacks execute outside the lookup/publication lock. Concurrent or reentrant
+          changes cause replacement to recheck precedence and retry callbacks.
+          Only registrations on the configured initializer's own thread inherit configuration
+          precedence and propagate registration errors to the initializer. This compares managed
+          thread IDs while Initialize is running; it does not track logical async context.
+          Queued work or continuations on another thread use application precedence and return
+          false on recoverable registration errors, even if the initializer waits for that work.
+          The marker is cleared when Initialize returns or throws; asynchronous work is not
+          awaited. GetProvider does not use this thread-ID check.
+          Concurrent bootstrap access observes published state without waiting for
+          initialization to finish; later configuration registrations can replace application
+          registrations made during bootstrap.
+        </para>
+      </remarks>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationProviderConfigurationSection">
+            <summary>
+        The configuration section definition for reading app.config.
+        This infrastructure type is not intended for direct use by application code.
+      </summary><remarks>
+        <para>Defines the legacy <c>SqlAuthenticationProviders</c> section for authentication configuration.</para>
+        <para>
+          This type is public to support use across SqlClient assemblies and configuration
+          section activation. Applications should not instantiate, derive from, or access
+          this type directly.
+        </para>
+        <para>This sealed handler derives directly from <see cref="T:System.Configuration.ConfigurationSection" />.</para>
+        <para>Referencing this handler in an app.config section declaration is supported.</para>
+        <para>
+          The current <c>SqlClientAuthenticationProviders</c> section takes precedence.
+          An incompatible current handler is traced and ignored, allowing this legacy section
+          to be used. Configuration-reading errors produce empty settings without fallback.
+        </para>
+        <para>
+          Configuration reading uses a relaxed policy that traces and ignores configuration-reading,
+          handler, schema and broker-value errors. Ignoring these errors may select unintended
+          providers or provider settings. Recoverable initializer activation or registration
+          failures stop that initializer, but later configured providers are still attempted.
+          Failed explicit methods retain their activation exceptions and cannot fall back to
+          earlier providers or Azure defaults. Later entries and unrelated defaults remain usable.
+          A failed initializer blocks defaults for otherwise-unregistered methods.
+          Explicit application registration can recover a failed method. Fatal failures propagate.
+          Missing sections and empty optional attributes remain valid.
+        </para>
+        <para>
+          Enable tracing before the first registry access to capture configuration and discovery
+          failures. Recoverable failed entries are not retried after completed bootstrap.
+          Fatal bootstrap failures are not cached; later access can retry and repeat earlier
+          side effects if execution continues.
+          Activation failures are retained and traced again when affected methods are looked up.
+          Unexpected recoverable bootstrap failures are also cached and traced again.
+          Subsequent calls to
+          <see cref="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.GetProvider(Microsoft.Data.SqlClient.SqlAuthenticationMethod)" /> can still return successfully
+          registered providers, and <see cref="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.SetProvider(Microsoft.Data.SqlClient.SqlAuthenticationMethod,Microsoft.Data.SqlClient.SqlAuthenticationProvider)" /> can
+          register application providers without retrying bootstrap. Configuration registrations
+          retain precedence. Correct the configuration and restart the application to retry
+          configuration or discovery.
+        </para>
+        <para>
+          Earlier registrations and initializer/provider callback side effects are not rolled back.
+        </para>
+      </remarks>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderConfigurationSection.Name">
+            <summary>The name of the legacy authentication configuration section.</summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationProviderConfigurationSection.Providers">
+            <summary>User-defined auth providers.</summary><value>The collection of user-defined authentication providers.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationProviderConfigurationSection.InitializerType">
+            <summary>User-defined initializer.</summary><value>The assembly-qualified initializer type name, or an empty string when unset.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationProviderConfigurationSection.ApplicationClientId">
+            <summary>Application Client Id</summary><value>The application client ID, or an empty string when unset.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationProviderConfigurationSection.UseWamBroker">
+            <summary>
+        Forwarded to <c>ActiveDirectoryAuthenticationProviderOptions.UseWamBroker</c>
+        when the Azure extension's default provider is auto-installed. Stored as a string so
+        that an unset attribute can be distinguished from <c>useWamBroker="false"</c>; the
+        runtime parses it with <see cref="M:System.Boolean.TryParse(System.String,System.Boolean@)" />.
+      </summary><value>The Web Account Manager broker preference, or an empty string when unset.</value><remarks>
+        An unset or empty value preserves the Azure provider's default broker behavior.
+        Non-empty values must parse as a Boolean. Invalid values are traced and ignored,
+        preserving the provider's default broker behavior and other valid settings.
+      </remarks>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationProviderException">
+            <summary>
+        This exception is thrown for any errors that occur during the
+        authentication process.
+      </summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderException.Unknown">
+            <summary>
+            The string value used when the failure code is not known.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderException.#ctor(System.String,System.Exception)">
+            <summary>
+        Protected construction for derived classes to supply a minimal set of
+        values.
+
+        Method will be NotSpecified.
+        FailureCode will be "Unknown".
+        ShouldRetry will be false.
+        RetryPeriod will be 0.
+      </summary><param name="message">The error message.</param><param name="causedBy">The exception that caused this exception, if any.</param>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderException.#ctor(Microsoft.Data.SqlClient.SqlAuthenticationMethod,System.String,System.Boolean,System.Int32,System.String,System.Exception)">
+            <summary>
+        Protected construction for derived classes to supply values for all
+        public properties.
+      </summary><param name="method">
+        The authentication method that failed, or NotSpecified if not known.
+      </param><param name="failureCode">
+        The failure code, or "Unknown" if not known.
+      </param><param name="shouldRetry">
+        True if the action should be retried, false otherwise.
+      </param><param name="retryPeriod">
+        The period of time, in milliseconds, to wait before retrying the action.
+        Specify 0 if no retry period is suggested.  Ignored if negative.  Not
+        used when ShouldRetry is false, in which cases 0 is assumed.
+      </param><param name="message">
+        The error message.
+      </param><param name="causedBy">
+        The exception that caused this exception, if any.
+      </param>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationProviderException.Method">
+            <summary>
+        The authentication method that failed, or NotSpecified if not known.
+      </summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationProviderException.FailureCode">
+            <summary>
+        The failure code, or "Unknown" if not known.
+      </summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationProviderException.ShouldRetry">
+            <summary>
+        True if the action should be retried, false otherwise.
+      </summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationProviderException.RetryPeriod">
+            <summary>
+        The period of time, in milliseconds, to wait before retrying the action.
+        0 if no retry period is suggested.  Never negative.  Always 0 when
+        ShouldRetry is false.
+      </summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderException.ToString">
+            <returns>
+        A string that includes the base exception information along with all
+        property values.
+      </returns>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry">
+            <summary>
+            Owns authentication provider registration and bootstrap in Abstractions so the public
+            registration API can access providers directly, including under NativeAOT.
+            </summary>
+            <remarks>
+            Synchronizes publication, not user callbacks. Successful configuration registrations take
+            precedence over application registrations and discovered defaults. Failed explicit methods
+            remain unavailable until explicitly recovered, without blocking unrelated configured methods.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._sync">
+            <summary>
+            Synchronizes bootstrap state and provider publication, never user callbacks.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._bootstrapInProgress">
+            <summary>Indicates bootstrap is executing, allowing reentrant registry access.</summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._initializerThreadId">
+            <summary>
+            Identifies the thread executing the configured initializer, or zero when none is running.
+            </summary>
+            <remarks>
+            This is a synchronous execution check, not causal attribution. SetProvider uses it for
+            configuration precedence and exception propagation; GetProvider does not use it.
+            Queued work or async continuations on another thread use application behavior even while
+            Initialize is running. The marker is cleared when Initialize returns or throws; async
+            work is not awaited, and ExecutionContext flow does not transfer initializer status.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._bootstrapCompleted">
+            <summary>Indicates that all enabled bootstrap steps were attempted.</summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._bootstrapFailure">
+            <summary>
+            Preserves the original bootstrap failure for subsequent registry accesses.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._configurationFailures">
+            <summary>Failed explicit methods cannot silently use a previous provider or Azure default.</summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._initializerFailure">
+            <summary>An initializer's unknown intended methods must not silently use Azure defaults.</summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.Instance">
+            <summary>
+            The shared registry, available before bootstrap invokes a configured initializer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._providers">
+            <summary>Provider registrations indexed by the authentication methods they serve.</summary>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.RegistrationTier">
+            <summary>Registration precedence, ordered from lowest to highest.</summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.RegistrationTier.Default">
+            <summary>
+            A discovered Azure provider that cannot replace an existing registration.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.RegistrationTier.Application">
+            <summary>An application registration that can replace a discovered default.</summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.RegistrationTier.Config">
+            <summary>
+            A configured provider or initializer registration that application code cannot override.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry._configuration">
+            <summary>Validated authentication settings owned by this registry instance.</summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.GetProvider(Microsoft.Data.SqlClient.SqlAuthenticationMethod)">
+            <summary>
+            Gets the registered provider for an authentication method after ensuring bootstrap.
+            </summary>
+            <param name="authenticationMethod">The authentication method to look up.</param>
+            <returns>
+            The provider, or null if none is registered, including after a recoverable bootstrap failure.
+            </returns>
+            <remarks>
+            Recoverable failures, including cached bootstrap failures, emit actionable diagnostic
+            traces.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.SetProvider(Microsoft.Data.SqlClient.SqlAuthenticationMethod,Microsoft.Data.SqlClient.SqlAuthenticationProvider)">
+            <summary>
+            Registers an authentication provider with application or configured-initializer precedence.
+            </summary>
+            <param name="authenticationMethod">Authentication method.</param>
+            <param name="provider">Authentication provider.</param>
+            <returns>
+            True if registration succeeds; false on recoverable argument or callback
+            errors, or if an existing registration has higher precedence.
+            </returns>
+            <remarks>
+            Recoverable failures and precedence refusals emit diagnostic traces. Registrations made
+            synchronously on the configured initializer's thread receive configuration precedence
+            rather than application precedence. Only that thread bypasses the recoverable-exception
+            catch filters, allowing registration errors to stop the initializer. Configuration
+            application traces the failure and continues with the remaining configured providers.
+            Work on other threads uses application precedence and ordinary false-on-error behavior,
+            regardless of whether the initializer queued or synchronously waits for that work.
+            Provider validation and callbacks run outside the registry lock, including during bootstrap.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.LoadAzureExtension(System.Func{System.Reflection.Assembly})">
+            <summary>
+            Discovers and registers Azure defaults using the supplied assembly loader.
+            </summary>
+            <param name="loadAssembly">
+            The assembly loader; production uses <see cref="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.LoadAzureExtensionAssembly"/> to validate
+            identity in signed builds.
+            </param>
+            <remarks>
+            Recoverable discovery failures are traced without failing registry bootstrap; fatal runtime
+            errors propagate.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.CreateAzureAuthenticationProvider(System.Type,System.Type,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Reflectively constructs an Azure authentication provider using the configured overrides.
+            </summary>
+            <param name="providerType">The Azure authentication provider type to instantiate.</param>
+            <param name="optionsType">The required Azure options type.</param>
+            <param name="applicationClientId">
+            The application client ID override, or null to retain the default.
+            </param>
+            <param name="useWamBroker">The WAM broker override, or null to retain the default.</param>
+            <returns>
+            The constructed provider, or null if reflective construction does not produce an
+            authentication provider.
+            </returns>
+            <remarks>
+            Always uses the options constructor, preserving option defaults when no overrides are
+            configured.
+            Incompatible Azure contracts are logged during discovery without installing a default
+            provider.
+            </remarks>
+            <exception cref="T:System.MissingMethodException">
+            The extension lacks the required options constructor.
+            </exception>
+            <exception cref="T:System.MissingMemberException">
+            The options type lacks a configured property.
+            </exception>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.EnsureBootstrapped(System.Func{System.String,System.Object},System.Func{System.Reflection.Assembly})">
+            <summary>
+            Runs the enabled configuration and Azure discovery steps on first access.
+            </summary>
+            <param name="getSection">
+            The section reader, or null to use the process-wide ConfigurationManager.
+            </param>
+            <param name="loadAzureAssembly">
+            The Azure assembly loader, or null to use the production loader with identity validation.
+            </param>
+            <remarks>
+            Concurrent and reentrant access observes published state while bootstrap is in progress.
+            Recoverable configuration failures are traced without preventing Azure discovery.
+            Completed bootstrap does not retry failed configuration or optional discovery.
+            Unexpected recoverable bootstrap failures are cached and rethrown internally.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.LoadAzureExtensionAssembly">
+            <summary>Loads the Azure extension with the same identity checks as attestation.</summary>
+            <returns>The trusted Azure assembly, or null if it is unavailable.</returns>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.ApplyConfiguration(Microsoft.Data.SqlClient.SqlAuthenticationConfiguration)">
+            <summary>
+            Applies Azure options, invokes a configured initializer and registers configured providers.
+            </summary>
+            <param name="configuration">
+            The validated settings to retain for Azure discovery and provider activation.
+            </param>
+            <remarks>
+            Initializer and provider registrations receive configuration precedence. Recoverable
+            initializer or provider failures are traced, and remaining entries are still attempted.
+            Failed explicit methods are retained and cannot use defaults or earlier registrations.
+            An initializer failure prevents defaults for otherwise-unregistered methods.
+            Callback effects are not rolled back. Fatal errors propagate.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.Register(Microsoft.Data.SqlClient.SqlAuthenticationMethod,Microsoft.Data.SqlClient.SqlAuthenticationProvider,Microsoft.Data.SqlClient.SqlAuthenticationProviderRegistry.RegistrationTier)">
+            <summary>
+            Validates and publishes a provider registration according to its precedence.
+            </summary>
+            <param name="authenticationMethod">The authentication method to register.</param>
+            <param name="provider">The provider that must support the method.</param>
+            <param name="tier">
+            The registration precedence; defaults to application precedence, promoted to configuration
+            precedence when checked on the configured initializer's thread while Initialize is running.
+            </param>
+            <returns>True if registered; false if precedence prevents replacement.</returns>
+            <remarks>
+            Validates support and runs callbacks outside the registry lock. Replacement invokes
+            the old provider's BeforeUnload and the new provider's BeforeLoad before updating the
+            registration; first registrations do not invoke these callbacks. Reentrant changes to the
+            same method, including concurrent changes, restart precedence checks and callbacks.
+            Callback failures do not publish the replacement.
+            </remarks>
+            <exception cref="T:System.NotSupportedException">
+            The provider does not support the authentication method.
+            </exception>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationToken">
+            <summary>Represents an authentication token.</summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationToken.#ctor(System.String,System.DateTimeOffset)">
+            <summary>
+        Construct with values for all properties.
+      </summary><param name="accessToken">The token string.</param><param name="expiresOn">The token expiration time.</param><throws cref="T:Microsoft.Data.SqlClient.SqlAuthenticationProviderException">
+        <paramref name="accessToken" /> is null or empty.
+      </throws>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlAuthenticationToken.TokenException">
+            <summary>
+            The exception thrown by the SqlAuthenticationToken constructor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.SqlClient.SqlAuthenticationToken.TokenException.#ctor(System.String)">
+            <summary>
+            Construct with the exception message.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationToken.AccessToken">
+            <summary>Gets the token string.</summary><value>The token string.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlAuthenticationToken.ExpiresOn">
+            <summary>Gets the token expiration time.</summary><value>The token expiration time.</value>
+        </member>
+        <member name="T:Microsoft.Data.SqlClient.SqlClientAuthenticationProviderConfigurationSection">
+            <summary>
+        The configuration section definition for reading app.config.
+        This infrastructure type is not intended for direct use by application code.
+      </summary><remarks>
+        <para>Defines the current <c>SqlClientAuthenticationProviders</c> section for authentication configuration.</para>
+        <para>
+          This type is public to support use across SqlClient assemblies and configuration
+          section activation. Applications should not instantiate, derive from, or access
+          this type directly.
+        </para>
+        <para>This sealed handler derives directly from <see cref="T:System.Configuration.ConfigurationSection" />.</para>
+        <para>Referencing this handler in an app.config section declaration is supported.</para>
+        <para>
+          This section takes precedence over <c>SqlAuthenticationProviders</c>.
+          An incompatible handler is traced and ignored, allowing the legacy section to be used.
+          Configuration-reading errors produce empty settings without fallback.
+        </para>
+        <para>
+          Configuration reading uses a relaxed policy that traces and ignores configuration-reading,
+          handler, schema and broker-value errors. Ignoring these errors may select unintended
+          providers or provider settings. Recoverable initializer activation or registration
+          failures stop that initializer, but later configured providers are still attempted.
+          Failed explicit methods retain their activation exceptions and cannot fall back to
+          earlier providers or Azure defaults. Later entries and unrelated defaults remain usable.
+          A failed initializer blocks defaults for otherwise-unregistered methods.
+          Explicit application registration can recover a failed method. Fatal failures propagate.
+          Missing sections and empty optional attributes remain valid.
+        </para>
+        <para>
+          Enable tracing before the first registry access to capture configuration and discovery
+          failures. Recoverable failed entries are not retried after completed bootstrap.
+          Fatal bootstrap failures are not cached; later access can retry and repeat earlier
+          side effects if execution continues.
+          Activation failures are retained and traced again when affected methods are looked up.
+          Unexpected recoverable bootstrap failures are also cached and traced again.
+          Subsequent calls to
+          <see cref="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.GetProvider(Microsoft.Data.SqlClient.SqlAuthenticationMethod)" /> can still return successfully
+          registered providers, and <see cref="M:Microsoft.Data.SqlClient.SqlAuthenticationProvider.SetProvider(Microsoft.Data.SqlClient.SqlAuthenticationMethod,Microsoft.Data.SqlClient.SqlAuthenticationProvider)" /> can
+          register application providers without retrying bootstrap. Configuration registrations
+          retain precedence. Correct the configuration and restart the application to retry
+          configuration or discovery. Earlier registrations and initializer/provider callback
+          side effects are not rolled back.
+        </para>
+      </remarks>
+        </member>
+        <member name="F:Microsoft.Data.SqlClient.SqlClientAuthenticationProviderConfigurationSection.Name">
+            <summary>The name of the current authentication configuration section.</summary>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlClientAuthenticationProviderConfigurationSection.Providers">
+            <summary>User-defined auth providers.</summary><value>The collection of user-defined authentication providers.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlClientAuthenticationProviderConfigurationSection.InitializerType">
+            <summary>User-defined initializer.</summary><value>The assembly-qualified initializer type name, or an empty string when unset.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlClientAuthenticationProviderConfigurationSection.ApplicationClientId">
+            <summary>Application Client Id</summary><value>The application client ID, or an empty string when unset.</value>
+        </member>
+        <member name="P:Microsoft.Data.SqlClient.SqlClientAuthenticationProviderConfigurationSection.UseWamBroker">
+            <summary>
+        Forwarded to <c>ActiveDirectoryAuthenticationProviderOptions.UseWamBroker</c>
+        when the Azure extension's default provider is auto-installed. Stored as a string so
+        that an unset attribute can be distinguished from <c>useWamBroker="false"</c>; the
+        runtime parses it with <see cref="M:System.Boolean.TryParse(System.String,System.Boolean@)" />.
+      </summary><value>The Web Account Manager broker preference, or an empty string when unset.</value><remarks>
+        An unset or empty value preserves the Azure provider's default broker behavior.
+        Non-empty values must parse as a Boolean. Invalid values are traced and ignored,
+        preserving the provider's default broker behavior and other valid settings.
+      </remarks>
+        </member>
+    </members>
+</doc>

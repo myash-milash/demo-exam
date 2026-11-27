@@ -1,0 +1,55 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\!!!\u0414\u0435\u043C\u043E\u042D\u043A\u0437\u0430\u043C\u0435\u043D\\demo wpf\\DemoWpf\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A235423A-85F9-4DD2-A7CD-3FB3AA0E4789}|DemoWpf\\DemoWpf.csproj|g:\\!!!\u0434\u0435\u043C\u043E\u044D\u043A\u0437\u0430\u043C\u0435\u043D\\demo wpf\\demowpf\\demowpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A235423A-85F9-4DD2-A7CD-3FB3AA0E4789}|DemoWpf\\DemoWpf.csproj|solutionrelative:demowpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A235423A-85F9-4DD2-A7CD-3FB3AA0E4789}|DemoWpf\\DemoWpf.csproj|g:\\!!!\u0434\u0435\u043C\u043E\u044D\u043A\u0437\u0430\u043C\u0435\u043D\\demo wpf\\demowpf\\demowpf\\adminwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A235423A-85F9-4DD2-A7CD-3FB3AA0E4789}|DemoWpf\\DemoWpf.csproj|solutionrelative:demowpf\\adminwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "G:\\!!!\u0414\u0435\u043C\u043E\u042D\u043A\u0437\u0430\u043C\u0435\u043D\\demo wpf\\DemoWpf\\DemoWpf\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "DemoWpf\\MainWindow.xaml.cs",
+              "ToolTip": "G:\\!!!\u0414\u0435\u043C\u043E\u042D\u043A\u0437\u0430\u043C\u0435\u043D\\demo wpf\\DemoWpf\\DemoWpf\\MainWindow.xaml.cs",
+              "RelativeToolTip": "DemoWpf\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-27T19:29:39.71Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdminWindow.xaml",
+              "DocumentMoniker": "G:\\!!!\u0414\u0435\u043C\u043E\u042D\u043A\u0437\u0430\u043C\u0435\u043D\\demo wpf\\DemoWpf\\DemoWpf\\AdminWindow.xaml",
+              "RelativeDocumentMoniker": "DemoWpf\\AdminWindow.xaml",
+              "ToolTip": "G:\\!!!\u0414\u0435\u043C\u043E\u042D\u043A\u0437\u0430\u043C\u0435\u043D\\demo wpf\\DemoWpf\\DemoWpf\\AdminWindow.xaml",
+              "RelativeToolTip": "DemoWpf\\AdminWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-11-27T19:26:45.536Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
